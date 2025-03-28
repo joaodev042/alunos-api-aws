@@ -17,6 +17,11 @@ lint = true
 capabilities = "CAPABILITY_IAM"
 confirm_changeset = true
 resolve_s3 = true
+stack_name = "alunos-api-dev2"
+s3_prefix = "alunos-api-dev2"
+region = "us-east-2"
+image_repositories = []
+disable_rollback = true
 
 [default.package.parameters]
 resolve_s3 = true
