@@ -60,6 +60,33 @@ Resources:
             Path: /get-item/{id}
             Method: GET
 
+  EnviarSMSFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: EnviarSMS/
+      Handler: app.lambda_handler
+      Runtime: python3.9
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref BedrockMetadataImagesS3Table
+          TELEFONE_SMS: "+5583993743663" # Substitua pelo número de telefone para envio de SMS
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref BedrockMetadataImagesS3Table
+        - Statement:
+            - Effect: Allow
+              Action:
+                - sns:Publish
+              Resource: "*"
+      Events:
+        ApiEnviarSMS:
+          Type: Api
+          Properties:
+            Path: /enviar-sms
+            Method: GET
+
   CreatePresignedUrlFunction:
     Type: AWS::Serverless::Function
     Properties:
